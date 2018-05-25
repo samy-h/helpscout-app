@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    	<link rel="stylesheet" type="text/css" href="https://helpscoutapp.weglot.com/public/weglot_1.css">
+    	<link rel="stylesheet" type="text/css" href="weglot_2.css">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Conversations | Weglot</title>
+
+    <script type="text/javascript">
+
+      // SCROLL BUTTON
+
+      $(document).ready(function(){
+        //Check to see if the window is top if not then display button
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('.scrollToTop').fadeIn();
+            } else {
+                $('.scrollToTop').fadeOut();
+            }
+        });
+        //Click event to scroll to top
+        $('.scrollToTop').click(function(){
+            $('html, body').animate({scrollTop : 0},800);
+            return false;
+        });
+      });
+
+      // RESIZE TEXTAREAS
+
+      var observe;
+      if (window.attachEvent) {
+          observe = function (element, event, handler) {
+              element.attachEvent('on'+event, handler);
+          };
+      }
+      else {
+          observe = function (element, event, handler) {
+              element.addEventListener(event, handler, false);
+          };
+      }
+
+      function init () { 
+        function resize (event) {
+          if(event instanceof HTMLElement) {
+            element = event;
+          }
+          else {
+            element = event.target;
+          }
+          element.style.height = 'auto';
+          element.style.height = element.scrollHeight+'px';
+        }
+          /* 0-timeout to get the already changed text */
+        function delayedResize (event) {
+              window.setTimeout(resize(event), 0);
+        }
+
+        var textareas = document.getElementsByClassName('textareas');
+        for (i = 0; i < textareas.length; i++) {
+            textarea = textareas[i];
+
+          observe(textarea, 'change',  resize);
+          observe(textarea, 'cut',     delayedResize);
+          observe(textarea, 'paste',   delayedResize);
+          observe(textarea, 'drop',    delayedResize);
+          observe(textarea, 'keydown', delayedResize);
+
+          resize(textarea);
+        }
+
+        // DELETE CHECKBOXES AND MAKE THEM OPAC
+
+        $("#deleteMessage").on("click",function(){
+          $("input:checkbox").each(function() {
+              if ($(this).is(":checked")) {
+                  $(this).parent().parent().parent().remove();
+              }
+          });
+        });
+
+        $('input:checkbox').change(function(){
+          var message = $("p", $(this).closest(".messages__details"))
+          if($(this).is(":checked")) {
+              message.addClass("opac");
+          } else {
+              $('div.messages__details p').removeClass("opac");
+          }
+        });
+      }
+    </script>
+  </head>
+
+  <body class="bg-light-grey" onload="init();">
+
+      <main id="main" class="main ">
+
+  		<header class="global-nav">
+  		  <div class="container">
+  			  <div class="header__logo" style="display: inline-block;">
+  			    <h1 class="nav-logo"><a href="https://weglot.com/" target="_blank">We<span class="nav-logo-g ">g</span>lot</a></h1>
+  			  </div>
+    			<div class="collapse hidden-md-up mt-3" id="mm-menu">
+    		    <ul class="list-inline text-right">
+              <li class="pt-3 pb-3"><a href="https://weglot.com/pricing" target="_blank" class="wg-nav-item">Help</a></li>
+    		      <li class="pt-3 pb-3"><a href="https://weglot.com/documentation" target="_blank" class="wg-nav-item">Documentation</a></li>
+    		      <li class="pt-3 pb-3"><a href="https://weglot.com/pricing" target="_blank" class="wg-nav-item">Pricing</a></li>
+    		    </ul>
+    		  </div>
+    	    <ul class="list-inline pull-right hidden-sm-down">
+            <li class="list-inline-item"><a href="https://weglot.com/pricing" target="_blank" class="wg-nav-item">Help</a></li>
+    		    <li class="list-inline-item"><a href="https://weglot.com/documentation" target="_blank" class="wg-nav-item">Documentation</a></li>
+    		    <li class="list-inline-item"><a href="https://weglot.com/pricing" target="_blank" class="wg-nav-item">Pricing</a></li>
+    	    </ul>
+  	    </div>
+  		</header>
+
+  		<section class="intro">
+  	        <div class="main-background pricing-background"></div>
+  	        <div class="container">
+  	            <div class="page-header-wrapper">
+  	                <h1 class="page-title">Conversations</h1>
+  	                <h2 class="page-subtitle">Here are displayed conversations that you can edit.</h2>
+  	            </div
+  	        </div>
+  	    </section>
+
+  	    <section class="pt-5 pb-5">
+  	    	<h1 class="section-title text-center mt-5">Messages</h1>
+   				<form action="confirm.php" method="post">
+   					<div class="container pb-5">
+              <div class="card text-center">
+   							<div class="card-block">
+   								<h1 class="h2"><textarea class="subject" name="subject">Re: TorreyPines.com: Weglot Plugin Not Translating?</textarea></h1>
+   								<span><textarea class="tags" name="tags">setup,wordpress</textarea></span>
+   							</div>
+      				</div>
+                                      <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[0]">Hi! The plugin is not translating TorreyPines.com. Thoughts?
+
+Our API Key
+wg_db2ed25c6ea1edb6a9f6842bd28688ff
+
+--
+
+Thank You,
+
+Travis Perreira
+Webmaster
+619.630.8728
+
+http://barrelomonkeyz.com</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[0]" value="Didier"></input>
+                          <label class="checkbox"><input value="0" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[0]" value="1520016587" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[1]">Hi Travis,
+
+It seems that your website is not yet linked to your Weglot account, as shown on your [Weglot Dashboard](https://dashboard.weglot.com/).
+Please make sure you followed well the integration process: [WordPress - Integration / Setup](http://support.weglot.com/article/72-wordpress-integration-setup).
+
+If you still have trouble with it, please provide me a WP admin account and the URL of your website.
+
+Keep me informed.
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[1]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="1" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[1]" value="1520239244" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[2]">Max, Check out my settings: ![ii_jeervck30_161f830ed3737105](https://d33v4339jhl8k0.cloudfront.net/inline/67355/35be1697491659e263ee316988b1f95f219da1ac/07de8035dafff983f53b86eebfa0a8b3e8edc952/image.png)</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[2]" value="Didier"></input>
+                          <label class="checkbox"><input value="2" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[2]" value="1520287526" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[3]">Hi Travis,
+
+In order for me to help you, could you please provide me a WP admin account?
+
+Keep me informed.
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[3]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="3" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[3]" value="1520329132" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[4]">wp account created and sent.</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[4]" value="Didier"></input>
+                          <label class="checkbox"><input value="4" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[4]" value="1520358562" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[5]">Hi Travis,
+
+The issue come from the URL you entered in the exclude URL section:
+
+![0ae7ab396283a969b3aa03dbd60b48a2.png](https://d33v4339jhl8k0.cloudfront.net/inline/67355/a7f06fc634c8b1b654ed3b5f5658e069f76e7ac0/bce4832febc7448e2a4eb56124a19e4b23002b26/0ae7ab396283a969b3aa03dbd60b48a2.png)
+
+I've removed it, it should work now.
+
+Moreover, there is a display none in your source code which prevents the switcher from being displayed:
+
+![35b2aad01b93d575ee23f5f11b63d5dd.png](https://d33v4339jhl8k0.cloudfront.net/inline/67355/6e6e204e889083540562e5e27c74903fd08699d9/aa396f9dbfa79af1ec0591f96ebffe86ceb010c3/35b2aad01b93d575ee23f5f11b63d5dd.png)
+
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[5]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="5" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[5]" value="1520415748" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[6]">Max, I entered the exclusion url and display none css on the homepage because the Weglot plugin wasnt working. Check out the Japanese version of a sub-page: https://www.torreypines.com/ja/what-we-do/</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[6]" value="Didier"></input>
+                          <label class="checkbox"><input value="6" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[6]" value="1520444573" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[7]">Hi Travis,
+
+At the end of your source code, you have this error: <!--Weglot error: Cannot JSON encode parameters: 5-->
+This is due to an unknown character detected by Weglot that stop translations from being displayed.
+
+After checking your code, I found this character that seem to be the cause of your issue:
+
+![d6d2699a78ee4c0dd6fefe21a24c3f3b.png](https://d33v4339jhl8k0.cloudfront.net/inline/67355/4c3d1c797983a8703582e110e477face69c3c09e/c45e2d8a5e694c142b1fd427a8ab42d2d6f913ab/d6d2699a78ee4c0dd6fefe21a24c3f3b.png)
+
+In order for Weglot to work well, you should remove it.
+
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[7]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="7" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[7]" value="1520502310" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[8]">Hello,
+
+I sent you an email some days ago, regarding your question, but you didn't reply.
+
+I’ll be glad to help!
+
+Keep me informed!
+Have a nice day,
+:-)</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[8]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="8" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[8]" value="1520844486" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[9]">Max, I apologize for not responding. After disabling the plugin adding that special character to the code, I found Weglot still did not work.</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[9]" value="Didier"></input>
+                          <label class="checkbox"><input value="9" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[9]" value="1521198659" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[10]">Hi Travis,
+
+I see that the plugin is uninstalled. Do you want me to reinstall it and make it work?
+
+Keep me informed.
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[10]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="10" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[10]" value="1521207827" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[11]">Hello,
+
+I sent you an email some days ago, regarding your question, but you didn't reply.
+
+I’ll be glad to help!
+
+Keep me informed!
+Have a nice day,
+:-)</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[11]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="11" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[11]" value="1521451366" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[12]">Max, Yes, would you please make the plugin work and stop the language menu in the top nav from changing in size? THANK YOU!</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[12]" value="Didier"></input>
+                          <label class="checkbox"><input value="12" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[12]" value="1521543894" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[13]">Hi Travis,
+
+I'm working on it.
+
+However, since I cannot access your source code, please remove the Weglot shortcode (if you used one) and this CSS rule:
+
+![d52d46a576fd9b22349adfd3345960f6.png](https://d33v4339jhl8k0.cloudfront.net/inline/67355/8eaf96420d2f690860e0bcee48d4564c911f4e26/10b54f9d67db7ab27e17b753e3bee729b333692f/d52d46a576fd9b22349adfd3345960f6.png)
+
+Keep me informed.
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[13]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="13" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[13]" value="1521544786" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[14]">In the theme's header files, instead of a shortcode, I inserted the weglot div - "<div id="weglot_here"></div>" Delete it? I would rather not have Weglot on the homepage until it is working. If you need to remove that CSS for testing, it is in the Head & Footer Code on the Home page. See below. ![ii_jf04b4d00_162451ef1990622e](https://d33v4339jhl8k0.cloudfront.net/inline/67355/2ca1f4125073741e67c753c2a77c04f372644d03/87802094671ca1b37261e62ae0219a0198c39140/image.png)</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[14]" value="Didier"></input>
+                          <label class="checkbox"><input value="14" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[14]" value="1521578278" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[15]">Hi Travis,
+
+It is because there still is the error at the end of your source code in translated languages:
+<!--Weglot error : Cannot json encode parameters: 5-->
+
+As you can the character is still here:
+
+![3013faccb8d2e09b7df59be75707c4fc.png](https://d33v4339jhl8k0.cloudfront.net/inline/67355/1fce2735330a1559c6bb716184005b683a7d9c24/eb00ee9e2162edb8e535100167b91a0235e17237/3013faccb8d2e09b7df59be75707c4fc.png)
+
+In order for Weglot to work, you'll have to remove them all.
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[15]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="15" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[15]" value="1521626959" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[16]">Max, I made a staging website for you. Same username & password. http://tp.wwwssr24.supercp.com/wp-admin/ The Responsive Menu plugin that inserted those triangle symbols in the code has been disabled. Please continue your troubleshooting. THANK YOU, Travis</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[16]" value="Didier"></input>
+                          <label class="checkbox"><input value="16" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[16]" value="1521795440" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[17]">Hi Travis,
+
+There still are triangle symbols in your source code.
+
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[17]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="17" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[17]" value="1521799298" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item user_name">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[18]">You are now looking at the staging website code right? Would you please send me a clearer image showing the triangles, so I can find some examples?</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[18]" value="Didier"></input>
+                          <label class="checkbox"><input value="18" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[18]" value="1521803579" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                        <div class="messages__item messages__item--right weglot">
+                      <div class="messages__details">
+                        <p><textarea class="textareas" name="message[19]">Hi Travis,
+
+Here it is:
+
+![434a4143bbc872092ebe7c9008980cc5.png](https://d33v4339jhl8k0.cloudfront.net/inline/67355/78259902aaf9422c804843453b59161f81c19c50/52e068c07f5bf8ac5e33bd247f7ba290256f9993/434a4143bbc872092ebe7c9008980cc5.png)
+
+Regards,</textarea></p>
+                        <small><i class="zmdi zmdi-mail-send mr-1"></i><input class="sender" name="sender[19]" value="Max from Weglot"></input>
+                          <label class="checkbox"><input value="19" type="checkbox"></label><i class="zmdi zmdi-delete"></i></small>
+                        <input name="message_time[19]" value="1521817897" style="display: none!important;"></input>
+                      </div>
+                    </div>
+  						                      <input class="btn btn-primary" type="submit" name="validate" value="Save Case">
+                  <button class="btn" type="button" id="deleteMessage">Delete</button>	       
+                  <a href="#" class="scrollToTop"><i class="icon-chevron-up"></i></a>
+  	        </div>
+  				</form>
+  		</section>
+
+  	</main>
+
+  	<footer id="footer" class="footer">
+  	    <div class="footer-background-2"></div>
+  	    <div class="container">
+  	        <div class="row text-left">
+  	            <div class="col">
+  	                <h5>Product</h5>
+  	                <ul class="list-unstyled">
+  	                    <li>
+  	                        <a href="https://weglot.com/documentation" target="_blank">Documentation</a>
+  	                    </li>
+  	                    <li>
+  	                        <a href="https://weglot.com//wordpress-translation-plugin" target="_blank">WordPress Plugin</a>
+  	                    </li>
+  	                    <li><a href="https://weglot.com//shopify-translation-app" target="_blank">Shopify App</a>
+  	                    </li>
+  	                    <li>
+  	                        <a href="https://weglot.com//bigcommerce-translation-app" target="_blank">BigCommerce App</a>
+  	                    </li>
+  	                    <li>
+                          <a href="https://weglot.com//jimdo-translation" target="_blank">Jimdo Integration</a>
+                        </li>
+  	                    <li>
+                          <a href="https://weglot.com//pricing" target="_blank">Pricing</a>
+                        </li>
+  	                </ul>
+  	            </div>
+  	            <div class="col">
+  	                <h5>Company</h5>
+  	                <ul class="list-unstyled">
+  	                    <li>
+                          <a href="https://weglot.com//jobs" target="_blank">Jobs</a>
+                        </li>
+  	                    <li>
+                          <a href="https://weglot.com//partners" target="_blank">Partners</a>
+                        </li>
+  	                    <li>
+                          <a href="https://weglot.com//terms" target="_blank">Terms</a>
+                        </li>
+  	                    <li>
+                          <a href="http://support.weglot.com" target="_blank">Support</a>
+                        </li>
+  	                </ul>
+  	            </div>
+  	            <div class="col">
+  	                <h5>Social</h5>
+  	                <ul class="list-unstyled">
+  	                    <li>
+                          <a target="_blank" href="https://www.facebook.com/weglot/" target="_blank">Facebook</a>
+                        </li>
+  	                    <li>
+                          <a target="_blank" href="https://twitter.com/weglot" target="_blank">Twitter</a>
+                        </li>
+  	                    <li>
+                          <a target="_blank" href="http://blog.weglot.com/" target="_blank">Blog</a>
+                        </li>
+  	                </ul>
+  	            </div>
+  	        </div>
+  	        <p class="mt-5">Weglot © 2018, translation as a service.</p>
+  	    </div>
+  	</footer>
+  </body>
+</html>
